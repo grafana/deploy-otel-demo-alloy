@@ -94,6 +94,28 @@ Use k9s or the viewer of your choice, to see that Alloy comes up in the "collect
 Go to your cloud account, and use the Explore Logs UI to see that logs are arriving from a number of the services in the OTel Demo.
 
 
+<br>
+
+## Teardown:
+This set of commands will uninstall Flux from the cluster, and then delete the namespaces created by this project.
+
+```flux uninstall -s ; kubectl delete namespace collector ; kubectl delete namespaces open-telemetry```
+
+<br>
+
+## To use the K8s integration instead of Alloy:
+
+1) see [this file](./pre-provision/k8s-integration.sh) - note that the OTel endpoint username (i.e. stack ID) has to be exported base64 encoded.
+2) do that encoding and export step
+3) run the k8s-integration pre-provision script
+4) run the flux bootstrap command again, but this time with the last line as:
+```
+    --path=clusters/production
+```
+
+When Flux starts deploying things, you should see the K8s integration come up. The OTel services will also be configured correctly to talk to the "receiver" Alloy's service.
+
+
 
 
 <br>
